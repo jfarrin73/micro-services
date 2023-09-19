@@ -6,6 +6,12 @@ spring:
     name: API-GATEWAY
   cloud:
     gateway:
+# automatically configures routes, but the request has to include the service name.
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+
       routes[0]:
         id: EMPLOYEE-SERVICE
         uri: lb://EMPLOYEE-SERVICE # could also use hard coded url instead of the load balancing (lb) url
@@ -21,3 +27,7 @@ eureka:
       serverUrl:
         defaultZone: http://localhost:8761/eureka
 
+# enable logging to see how the routes were mapped
+#logging:
+#  level:
+#    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: debug
