@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jfarrin73/micro-services-config
+          clone-on-start: true
+          default-label: main
 
 eureka:
   instance:
