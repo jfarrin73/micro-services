@@ -1,25 +1,28 @@
-server:
-  port: 8081
 
 spring:
   application:
     name: EMPLOYEE-SERVICE
+  config:
+    import: optional:configserver:http://localhost:8888
 
-  datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5445}/${POSTGRES_DB:udemy_2}
-    username: ${POSTGRES_USERNAME:udemy_2}
-    password: ${POSTGRES_PASSWORD:udemy_2}
-    driver-class-name: org.postgresql.Driver
-    connectionProperties:
-      sslFactory: org.postgresql.ssl.DefaultJavaSSLFactory
-
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-
-eureka:
-  instance:
-    client:
-      serverUrl:
-        defaultZone: http://localhost:8761/eureka
+#  datasource:
+#    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5445}/${POSTGRES_DB:udemy_2}
+#    username: ${POSTGRES_USERNAME:udemy_2}
+#    password: ${POSTGRES_PASSWORD:udemy_2}
+#    driver-class-name: org.postgresql.Driver
+#    connectionProperties:
+#      sslFactory: org.postgresql.ssl.DefaultJavaSSLFactory
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
+#
+#server:
+#  port: 8081
+#
+#eureka:
+#  instance:
+#    client:
+#      serverUrl:
+#        defaultZone: http://localhost:8761/eureka
