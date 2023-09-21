@@ -9,6 +9,23 @@ spring:
     username: guest
     password: guest
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+  pattern:
+    level:
+      '%5p [${spring.application.name}, %X{traceId:-}, %X{spanId:-}]'
+
+
 #  datasource:
 #    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5445}/${POSTGRES_DB:udemy_2}
 #    username: ${POSTGRES_USERNAME:udemy_2}
