@@ -22,3 +22,14 @@ services:
       POSTGRES_HOST_AUTH_METHOD: password
     ports:
       - "5445:5432"
+  organization-postgres-db:
+    container_name: organization-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: udemy_3
+      POSTGRES_PASSWORD: udemy_3
+      POSTGRES_DB: udemy_3
+      POSTGRES_HOST_AUTH_METHOD: password
+    ports:
+      - "5446:5432"

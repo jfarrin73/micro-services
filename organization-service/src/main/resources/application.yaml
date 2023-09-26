@@ -1,1 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5446}/${POSTGRES_DB:udemy_3}
+    username: ${POSTGRES_USERNAME:udemy_3}
+    password: ${POSTGRES_PASSWORD:udemy_3}
+    driver-class-name: org.postgresql.Driver
+    connectionProperties:
+      sslFactory: org.postgresql.ssl.DefaultJavaSSLFactory
 
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8083
