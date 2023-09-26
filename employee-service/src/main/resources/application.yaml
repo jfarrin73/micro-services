@@ -40,6 +40,15 @@ resilience4j:
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
 
+# Retry configuration
+  retry:
+    instances:
+      EMPLOYEE-SERVICE:
+        register-health-indicator: true
+        max-attempts: 5
+        wait-duration: 1s
+
+
 logging:
   level:
     org.springframework.web: DEBUG
