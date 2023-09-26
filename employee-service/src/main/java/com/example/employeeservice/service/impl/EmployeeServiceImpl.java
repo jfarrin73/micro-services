@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import static com.example.employeeservice.mapper.EmployeeMapper.mapToEmployee;
+import static com.example.employeeservice.mapper.EmployeeMapper.mapToEmployeeDto;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -25,19 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
-        Employee employee = new Employee(
-                employeeDto.getId(),
-                employeeDto.getFirstName(),
-                employeeDto.getLastName(),
-                employeeDto.getEmail(),
-                employeeDto.getDepartmentCode());
-        Employee savedEmployee = employeeRepository.save(employee);
-        return new EmployeeDto(
-                savedEmployee.getId(),
-                savedEmployee.getFirstName(),
-                savedEmployee.getLastName(),
-                savedEmployee.getEmail(),
-                savedEmployee.getDepartmentCode());
+        return mapToEmployeeDto(employeeRepository.save(mapToEmployee(employeeDto)));
     }
 
     @Override
@@ -62,14 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 //        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
-        EmployeeDto employeeDto = new EmployeeDto(
-                employee.getId(),
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getEmail(),
-                employee.getDepartmentCode());
-
-        return new APIResponseDto(employeeDto, departmentDto);
+        return new APIResponseDto(mapToEmployeeDto(employee), departmentDto);
     }
 
     public APIResponseDto getDefaultDepartment(Long id, Exception exception) {
@@ -81,13 +65,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         departmentDto.setDepartmentCode("RD001");
         departmentDto.setDepartmentDescription("Research and Development Department");
 
-        EmployeeDto employeeDto = new EmployeeDto(
-                employee.getId(),
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getEmail(),
-                employee.getDepartmentCode());
-
-        return new APIResponseDto(employeeDto, departmentDto);
+        return new APIResponseDto(mapToEmployeeDto(employee), departmentDto);
     }
 }
