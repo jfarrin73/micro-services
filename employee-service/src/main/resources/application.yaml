@@ -10,13 +10,35 @@ spring:
     password: guest
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
   tracing:
     sampling:
       probability: 1.0
+
+# Actuator endpoint for Circuit Breaker
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*" # Health is the important one here, but * is left from previous
+  endpoint:
+    health:
+      show-details: always
+
+# Circuit Breaker configuration. see resilience4j documentation for details
+resilience4j:
+  circuitbreaker:
+    instances:
+      EMPLOYEE-SERVICE:
+        register-health-indicator: true
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
 
 logging:
   level:
