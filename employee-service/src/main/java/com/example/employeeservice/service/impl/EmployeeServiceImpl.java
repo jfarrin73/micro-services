@@ -4,6 +4,7 @@ import com.example.employeeservice.Entity.Employee;
 import com.example.employeeservice.dto.APIResponseDto;
 import com.example.employeeservice.dto.DepartmentDto;
 import com.example.employeeservice.dto.EmployeeDto;
+import com.example.employeeservice.dto.OrganizationDto;
 import com.example.employeeservice.repository.EmployeeRepository;
 import com.example.employeeservice.service.EmployeeService;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -39,21 +40,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         logger.info("inside getEmployeeById() method");
         Employee employee = employeeRepository.findById(id).get();
 
-        String url = "http://localhost:8080/api/departments/" + employee.getDepartmentCode();
+        String departmentUri = "http://localhost:8080/api/departments/" + employee.getDepartmentCode();
+        String organizationUri = "http://localhost:8083/api/organizations/" + employee.getOrganizationCode();
 
-//        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity(url, DepartmentDto.class);
+//        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity(departmentUri, DepartmentDto.class);
 //        DepartmentDto departmentDto = responseEntity.getBody();
 
         DepartmentDto departmentDto = webClient
                 .get()
-                .uri(url)
+                .uri(departmentUri)
                 .retrieve()
                 .bodyToMono(DepartmentDto.class)
                 .block();
 
+        OrganizationDto organizationDto = webClient
+                .get()
+                .uri(organizationUri)
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
+
 //        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
-        return new APIResponseDto(mapToEmployeeDto(employee), departmentDto);
+        return new APIResponseDto(mapToEmployeeDto(employee), departmentDto, organizationDto);
     }
 
     public APIResponseDto getDefaultDepartment(Long id, Exception exception) {
@@ -65,6 +74,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         departmentDto.setDepartmentCode("RD001");
         departmentDto.setDepartmentDescription("Research and Development Department");
 
-        return new APIResponseDto(mapToEmployeeDto(employee), departmentDto);
+        return new APIResponseDto(mapToEmployeeDto(employee), departmentDto, new OrganizationDto());
     }
 }
