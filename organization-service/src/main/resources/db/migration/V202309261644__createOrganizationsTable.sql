@@ -1,8 +1,8 @@
 CREATE TABLE ORGANIZATIONS
 (
     id                      SERIAL PRIMARY KEY,
-    organizationName        VARCHAR(255),
-    organizationDescription VARCHAR(255),
-    organizationCode        VARCHAR(255),
-    createdDate             timestamp
+    organization_name        VARCHAR(255),
+    organization_description VARCHAR(255),
+    organization_code        VARCHAR(255),
+    created_date             timestamp
 );
