@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ORGANIZATION-SERVICE
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5446}/${POSTGRES_DB:udemy_3}
     username: ${POSTGRES_USERNAME:udemy_3}
@@ -14,3 +16,9 @@ spring:
 
 server:
   port: 8083
+
+eureka:
+  instance:
+    client:
+      serverUrl:
+        defaultZone: http://localhost:8761/eureka
