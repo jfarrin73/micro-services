@@ -20,6 +20,10 @@ spring:
         id: DEPARTMENT-SERVICE
         uri: lb://DEPARTMENT-SERVICE # could also use hard coded url instead of the load balancing (lb) url
         predicates[0]: Path=/api/departments/**
+      routes[2]:
+        id: ORGANIZATION-SERVICE
+        uri: lb://ORGANIZATION-SERVICE # could also use hard coded url instead of the load balancing (lb) url
+        predicates[0]: Path=/api/organizations/**
 
 eureka:
   instance:

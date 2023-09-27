@@ -3,6 +3,18 @@ spring:
     name: ORGANIZATION-SERVICE
   config:
     import: optional:configserver:http://localhost:8888
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 #  datasource:
 #    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5446}/${POSTGRES_DB:udemy_3}
 #    username: ${POSTGRES_USERNAME:udemy_3}
