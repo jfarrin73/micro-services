@@ -1,7 +1,8 @@
 import './App.css'
+import EmployeeComponent from "./component/EmployeeComponent.tsx";
 
 const App = () => (
-  <h1 className='text-3xl font-bold text-center'>Hello World</h1>
+  <EmployeeComponent/>
 );
 
 export default App

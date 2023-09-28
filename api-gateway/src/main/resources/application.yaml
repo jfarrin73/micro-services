@@ -25,6 +25,17 @@ spring:
         uri: lb://ORGANIZATION-SERVICE # could also use hard coded url instead of the load balancing (lb) url
         predicates[0]: Path=/api/organizations/**
 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+
 eureka:
   instance:
     client:
