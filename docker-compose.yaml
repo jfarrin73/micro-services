@@ -1,5 +1,23 @@
 version: "3.8"
 services:
+  service-registry:
+    container_name: service-registry
+    image: service-registry
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    environment:
+      EUREKA_URI: http://service-registry:8761/eureka
+  api-gateway:
+    container_name: api-gateway
+    image: api-gateway
+    restart: unless-stopped
+    ports:
+      - "9191:9191"
+    depends_on:
+      - service-registry
+    environment:
+      EUREKA_URI: http://service-registry:8761/eureka/
   department-postgres-db:
     container_name: department-db
     image: postgres
